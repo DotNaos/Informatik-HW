@@ -1,18 +1,18 @@
 #include <Arduino.h>
+#include "lib.h"
 
-// put function declarations here:
-int myFunction(int, int);
+volatile bool state = false;
+
+void buttonPressed() {
+  state = !state;
+  digitalWrite(LED, state);
+}
 
 void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+  attachInterrupt(digitalPinToInterrupt(BUTTON), buttonPressed, FALLING);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-}
-
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+  digitalWrite(BUZZER, HIGH);
+  delay(30);
 }
